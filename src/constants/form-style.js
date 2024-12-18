@@ -1,0 +1,26 @@
+export const previewStyle = {
+  position: "absolute",
+  top: "53%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 1500,
+  height: "85%",
+  bgcolor: "background.paper",
+  border: "1px solid grey",
+  boxShadow: 24,
+  p: 4,
+  display: "flex",
+  justifyContent: "space-between",
+};
+export const defaultStyle = {
+  position: "absolute",
+  top: "53%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 1000,
+  height: "85%",
+  bgcolor: "background.paper",
+  border: "1px solid grey",
+  boxShadow: 24,
+  p: 4,
+};
