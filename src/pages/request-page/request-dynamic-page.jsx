@@ -84,7 +84,9 @@ export default function RequestDynamicForm() {
         axios
           .post(API_URL +`/postDynamicFormData`, formData)
           .then(async (res) => {
-            if (!res?.data) {
+            if (res.status !== 200) {
+              console.log(res);
+              
               return;
             }
 
@@ -104,13 +106,13 @@ export default function RequestDynamicForm() {
               //reply_to: ""
             };
 
-            //const resultSendingMail = await sendEmailtoStaffs(emailParams);
+            const resultSendingMail = await sendEmailtoStaffs(emailParams);
 
             if (!resultSendingMail) {
-              return;
+              //return;
             }
 
-            setSendmailSuccess(true);
+            //setSendmailSuccess(true);
             navigate(REQUEST_LIST);
           });
       } catch (e) {

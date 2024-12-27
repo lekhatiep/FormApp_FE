@@ -34,7 +34,7 @@ export default function UpdatePage() {
   useEffect(() => {
     async function fetchFormLayout() {
       const rs = await axios.get(
-        `http://localhost:8080/getDynamicFormInputsByID/${ticketID}`
+        URL_SERVER_LOCAL+`/api/Ticket/getDynamicFormInputsByID/${ticketID}`
       );
       setInputs(JSON.parse(rs.data[0].form_data));
       setFormName(rs.data[0].form_name);
@@ -61,14 +61,14 @@ export default function UpdatePage() {
         staffRole = "executor";
         break;
     }
-    const res = await axios.get(`http://localhost:8080/getStaffEmailList`, {
+    const res = await axios.get(URL_SERVER_LOCAL+`/api/User/getStaffEmailList`, {
       params: { staffRole },
     });
     return res.data;
   }
   function handleUpdateTicketData(newData) {
     axios
-      .post(`http://localhost:8080/updateTicketData`, newData)
+      .post(URL_SERVER_LOCAL+`/api/Ticket/updateTicketData`, newData)
       .then(async (res) => {
         setIsUpdated(true);
         const StaffEmailsList = await getStaffEmailList();

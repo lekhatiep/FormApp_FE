@@ -247,13 +247,13 @@ export default function TicketPage() {
 
   async function handleUpdateStatus() {
     const currentDate = dayjs().format(TIMESTAMP_FORMAT);
-    await axios.post(`http://localhost:8080/updateStatus`, {
+    await axios.post(URL_SERVER_LOCAL+`/api/Ticket/updateStatus`, {
       ticketID,
       currentDate,
     });
   }
   async function HandlegetStudentEmail() {
-    const res = await axios.get(`http://localhost:8080/getStudentEmail`, {
+    const res = await axios.get(URL_SERVER_LOCAL+`/api/User/getStudentEmail`, {
       params: { requestor },
     });
     return res.data.email;
@@ -268,7 +268,7 @@ export default function TicketPage() {
         staffRole = "executor";
         break;
     }
-    const res = await axios.get(`http://localhost:8080/getStaffEmailList`, {
+    const res = await axios.get(URL_SERVER_LOCAL+`/api/User/getStaffEmailList`, {
       params: { staffRole },
     });
     return res.data;
@@ -276,7 +276,7 @@ export default function TicketPage() {
 
   function handleUpdateStep() {
     axios
-      .post(`http://localhost:8080/updateStepTicket`, { ticketID })
+      .post(URL_SERVER_LOCAL+`/api/Ticket/updateStepTicket`, { ticketID })
       .then(async () => {
         const studentEmail = await HandlegetStudentEmail();
         const nextStaffEmailList = await HandleGetNextStaffEmailList();
@@ -320,7 +320,7 @@ export default function TicketPage() {
   function handleUpdateNote() {
     if (note !== "") {
       axios
-        .post(`http://localhost:8080/updatePreviousNote`, { note, ticketID })
+        .post(URL_SERVER_LOCAL+`/api/Ticket/updatePreviousNote`, { note, ticketID })
         .then(() => {
           setIsSuccess(true);
         });
@@ -333,9 +333,9 @@ export default function TicketPage() {
   function handleDisapprove() {
     if (note !== "") {
       axios
-        .post(`http://localhost:8080/disapproveTicket`, { ticketID })
+        .post(URL_SERVER_LOCAL+`/api/Ticket/disapproveTicket`, { ticketID })
         .then(() => {
-          axios.post(`http://localhost:8080/updatePreviousNote`, {
+          axios.post(URL_SERVER_LOCAL+`/api/Ticket/updatePreviousNote`, {
             note,
             ticketID,
           });
