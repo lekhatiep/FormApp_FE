@@ -53,8 +53,12 @@ export default function RequestDynamicForm() {
   } = useForm();
 
   const getStaffEmailList = useCallback(async () => {
+    const token = localStorage.getItem("Token");
     const res = await axios.get(URL_SERVER_LOCAL +`/api/User/getStaffEmailList`, {
       params: { staffRole: PERMISSIONS.VERIFIER },
+      headers: {
+       Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!res?.data) {
