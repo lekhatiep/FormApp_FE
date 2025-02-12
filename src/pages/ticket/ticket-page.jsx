@@ -166,8 +166,6 @@ export default function TicketPage() {
         return;
       }
       if (user.role !== "admin" && user.role === checkPermission(activeStep)) {
-        console.log('ss');
-        
         setUserDenied(false);
         return;
       }

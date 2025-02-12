@@ -64,6 +64,8 @@ export default function LoginPage() {
               accountId: loginInput.username,
               role: res.data.role,
             };
+
+            localStorage.setItem("Token", res.data.token)
             getUser(userInfo);
             if (
               userInfo.role === PERMISSIONS.STUDENT ||

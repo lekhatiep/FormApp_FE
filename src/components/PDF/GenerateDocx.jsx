@@ -19,9 +19,9 @@ const GenDocx = (props) => {
 
   
   //
-  console.log("formData update", formData);
-  
-  const { form_file: formFile } = dynamicFormData ?? {};
+  //console.log("formData update", formData);
+  //console.log("dynamicFormData", dynamicFormData);
+  const { formFile: formFile } = dynamicFormData ?? {};
 
   const [isSelectedFile, setIsSelectedFile] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);

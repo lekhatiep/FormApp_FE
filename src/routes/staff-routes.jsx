@@ -5,5 +5,9 @@ import { Navigate } from "react-router-dom";
 
 export const StaffRoute = ({ children }) => {
   const { user } = useContext(UserContext) ?? "";
-  return user.role !== "student" ? children : <Navigate to={HOME_PAGE} />;
+  const roleCurrent = localStorage.getItem("Name");
+  console.log("user",user);
+  console.log("roleCurrent",roleCurrent)
+
+  return user.role !== "student"  && roleCurrent !== "student" ? children : <Navigate to={HOME_PAGE} />;
 }
