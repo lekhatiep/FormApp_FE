@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 export default function RequestDynamicForm() {
 
   let API_URL = "";
-  if(URL_SERVER_LOCAL.indexOf("5001") > 1){
+  if(URL_SERVER_LOCAL.indexOf("5001") > 1 ||URL_SERVER_LOCAL.indexOf("api") ){
     API_URL = URL_SERVER_LOCAL + "/api/Ticket"
   }
 

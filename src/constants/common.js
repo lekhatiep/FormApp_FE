@@ -44,4 +44,5 @@ export const NOTIFICATION = {
 export const ROW_PER_PAGE = [3, 5, 10];
 
  //export const URL_SERVER_LOCAL = "http://localhost:8080";
-export const URL_SERVER_LOCAL = "http://localhost:5001";
+//export const URL_SERVER_LOCAL = "http://localhost:5001";
+export const URL_SERVER_LOCAL = "https://api.bieumaulvtn.fun";
