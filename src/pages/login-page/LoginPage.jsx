@@ -164,7 +164,7 @@ export default function LoginPage() {
                 Sign In
               </Button>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="/forgot-password" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

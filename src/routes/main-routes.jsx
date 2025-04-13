@@ -3,6 +3,7 @@ import {
   FORM_CREATION,
   HOME_PAGE,
   LOGIN_PAGE,
+  FORGOT_PASSWORD,
   NOT_FOUND,
   REQUEST_DYNAMIC_FORM,
   REQUEST_LIST,
@@ -23,15 +24,21 @@ import { Route, Routes } from "react-router-dom";
 import { AdminRoute } from "./admin-routes";
 import { StaffRoute } from "./staff-routes";
 
-const CommonRoutes = [
-  { path: LOGIN_PAGE, element: <LandingPage /> },
-  { path: HOME_PAGE, element: <HomePage /> },
-  { path: REQUEST_DYNAMIC_FORM, element: <RequestDynamicForm /> },
-  { path: REQUEST_LIST, element: <RequestList /> },
-  { path: VIEW_TICKET, element: <TicketPage /> },
-  { path: UPDATE_TICKET, element: <UpdatePage /> },
-  { path: NOT_FOUND, element: <NotFound /> },
-]
+import ForgotPassword from '@pages/forgot-password';
+import ResetPassword from '@pages/reset-password';
+
+
+  const CommonRoutes = [
+    { path: LOGIN_PAGE, element: <LandingPage /> },
+    { path: HOME_PAGE, element: <HomePage /> },
+    { path: FORGOT_PASSWORD, element: <ForgotPassword /> },
+    { path: '/reset-password', element: <ResetPassword /> },
+    { path: REQUEST_DYNAMIC_FORM, element: <RequestDynamicForm /> },
+    { path: REQUEST_LIST, element: <RequestList /> },
+    { path: VIEW_TICKET, element: <TicketPage /> },
+    { path: UPDATE_TICKET, element: <UpdatePage /> },
+    { path: NOT_FOUND, element: <NotFound /> },
+  ]
 export const MainRoute = () => {
   return (
     <Routes>
