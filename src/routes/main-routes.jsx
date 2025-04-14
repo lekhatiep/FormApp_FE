@@ -22,6 +22,9 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AdminRoute } from "./admin-routes";
 import { StaffRoute } from "./staff-routes";
+import { FORGOT_PASSWORD } from "../constants/common";
+import ForgotPassword from "../pages/forgot-password/ForgotPassword";
+import ResetPasswordPage from "../pages/forgot-password/ResetPassword";
 
 const CommonRoutes = [
   { path: LOGIN_PAGE, element: <LandingPage /> },
@@ -31,6 +34,8 @@ const CommonRoutes = [
   { path: VIEW_TICKET, element: <TicketPage /> },
   { path: UPDATE_TICKET, element: <UpdatePage /> },
   { path: NOT_FOUND, element: <NotFound /> },
+  { path: FORGOT_PASSWORD, element: <ForgotPassword /> },
+  { path: 'resetpw', element: <ResetPasswordPage /> },
 ]
 export const MainRoute = () => {
   return (

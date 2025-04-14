@@ -17,9 +17,14 @@ import { useContext, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import background from "../../assets/anh_nen.jpg";
 import { HOME_PAGE } from "@constants/common";
-import { APPROVAL_LIST, FORGOT_PASSWORD, PERMISSIONS ,URL_SERVER_LOCAL} from "../../constants/common";
+import {
+  APPROVAL_LIST,
+  FORGOT_PASSWORD,
+  PERMISSIONS,
+  URL_SERVER_LOCAL,
+} from "../../constants/common";
 import { makeStyles } from "@mui/styles";
-
+import { Snackbar, Alert } from "@mui/material";
 function Copyright(props) {
   return (
     <Typography
@@ -39,84 +44,79 @@ function Copyright(props) {
 
 const theme = createTheme();
 const useStyles = makeStyles(() => ({
-  sidebarContainer: {
-    position: "fixed",
-    height: "100%",
-    width: "13rem",
-    backgroundColor: "#E8E8E8",
-    zIndex: 999,
-    paddingLeft: "1rem",
-  },
-  sidebarList: {
-    width: "12.5rem",
-    height: "22.25rem",
-    margin: "2rem auto auto",
-    marginTop: "6.25rem",
-    listStyleType: "none",
-    "& li": {
-      marginTop: "0.5rem",
-    },
-  },
   forgotPassword: {
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 }));
 
-export default function LoginPage() {
-  
+export default function ResetPasswordPage() {
   let API_URL = "";
-  if(URL_SERVER_LOCAL.indexOf("5001") > 1 || URL_SERVER_LOCAL.indexOf("api")){
-    API_URL = URL_SERVER_LOCAL + "/api/User"
+  if (URL_SERVER_LOCAL.indexOf("5001") > 1 || URL_SERVER_LOCAL.indexOf("api")) {
+    API_URL = URL_SERVER_LOCAL + "/api/User";
   }
-
   const classes = useStyles();
   const navigate = useNavigate();
-  const { getUser } = useContext(UserContext);
-  const [loginInput, setLoginInput] = useState({
-    username: "",
-    password: "",
-  });
-  const [isLoginFailed, setIsLoginFailed] = useState(false);
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!validateEmail(email)) {
+      setError("Please input valid Email");
+      return;
+    }
+
     try {
       await axios
-        .post(API_URL+"/checkAccountInfo", loginInput)
+        .post(API_URL + "/SendNewPassword?email=" + email)
         .then((res) => {
-          if (res.data.message === "Login Successfully") {
-            localStorage.setItem("Name", loginInput.username);
-            const userInfo = {
-              accountId: loginInput.username,
-              role: res.data.role,
-            };
-
-            localStorage.setItem("Token", res.data.token)
-            getUser(userInfo);
-            if (
-              userInfo.role === PERMISSIONS.STUDENT ||
-              userInfo.role === PERMISSIONS.ADMIN
-            )
-              navigate(HOME_PAGE);
-            else navigate(APPROVAL_LIST);
-          } else {
-            setIsLoginFailed(res.data.message);
-            setTimeout(() => {
-              setIsLoginFailed(false);
-            }, 1300);
+          if (res.status === 200) {
+            setOpen(true);
+            
           }
         });
     } catch (e) {
       console.log("Error", e);
     }
+    setEmail("")
+  };
+
+  const validateEmail = (value) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(value);
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    if (!validateEmail(value)) {
+      setError("Invalid Email");
+    } else {
+      setError("");
+    }
   };
   function handleClick() {
     // Logic to execute before redirecting
-    navigate("/resetpw");
+    navigate("/");
   }
   return (
-    
     <ThemeProvider theme={theme}>
-      {isLoginFailed && <Notification message="Invalid userName or password" />}
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={() => setOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }} 
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Send Successfully, Please check your email !
+        </Alert>
+      </Snackbar>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -150,7 +150,7 @@ export default function LoginPage() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              SEND NEW PASSWORD
             </Typography>
             <Box
               component="form"
@@ -162,27 +162,15 @@ export default function LoginPage() {
                 margin="normal"
                 required
                 fullWidth
-                id="username"
-                label="Account ID"
-                name="username"
-                autoComplete="username"
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
                 autoFocus
-                onChange={(e) =>
-                  setLoginInput({ ...loginInput, username: e.target.value })
-                }
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={(e) =>
-                  setLoginInput({ ...loginInput, password: e.target.value })
-                }
+                value={email}
+                onChange={handleChange}
+                error={!!error}
+                helperText={error}
               />
               <Button
                 type="submit"
@@ -190,13 +178,11 @@ export default function LoginPage() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                SEND
               </Button>
-              <Grid item xs>
-                <Link onClick={handleClick} className={classes.forgotPassword}>
-                  Forgot password?
+              <Link onClick={handleClick} className={classes.forgotPassword}>
+                  Login Page?
                 </Link>
-              </Grid>
             </Box>
           </Box>
         </Grid>
