@@ -27,6 +27,7 @@ export const HOME_PAGE = "/home-page";
 export const VIEW_TICKET = "/ticket-page/:id";
 export const UPDATE_TICKET = "/update-ticket/:id";
 export const NOT_FOUND = "*";
+export const FORGOT_PASSWORD = "/forgot_password";
 
 export const NOTIFICATION = {
   IS_DELETED: "Deleted Successfully",
