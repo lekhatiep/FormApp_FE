@@ -1,11 +1,16 @@
 import emailjs from "emailjs-com";
+
+var EmailJSserviceID = "service_mq65bfi"; 
+
+var EmailjsPublicKey = "F0AI_eAUzp1yw8-oi";
+const EmailJSTemplateIDStudent = "template_1vua53x"; // TEMPLATE ID FOR STUDENT
 export async function sendEmailtoStudents(mailParams) {
   try {
     const resp = await emailjs.send(
-      "service_lkssckr",
-      "template_zrurawn",
+      EmailJSserviceID,
+      EmailJSTemplateIDStudent,
       mailParams,
-      "bkhRwgX4pogIC92vo"
+      EmailjsPublicKey
     );
     return true;
   } catch (error) {
@@ -14,14 +19,10 @@ export async function sendEmailtoStudents(mailParams) {
   }
 }
 
-var EmailJSserviceID = "service_mq65bfi"; 
-var EmailJSTemplateID = "template_n4spuwg"; 
-var EmailjsPublicKey = "F0AI_eAUzp1yw8-oi";
-
-
+var EmailJSTemplateID = "template_n4spuwg"; // TEMPLATE ID FOR EMPLOYEE
 export async function sendEmailtoStaffs(mailParams) {
   console.log("SendMailSTAFF");
-  return true;
+  //return true;
   try {
     const resp = await emailjs.send(
       EmailJSserviceID,

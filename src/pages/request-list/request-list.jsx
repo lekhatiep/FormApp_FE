@@ -13,9 +13,14 @@ function RequestList() {
   const [isLoaded, setIsLoaded] = useState(false);
   const { user } = useContext(UserContext) ?? {};
   const [rowsRequestList, setRowsRequestList] = useState([]);
+  const token = localStorage.getItem("Token");
 
   const fetchTicketRequest = React.useCallback(async () => {
-    axios.get(URL_SERVER_LOCAL +"/api/Ticket/getTicketInfo").then((res) => {
+    axios.get(URL_SERVER_LOCAL +"/api/Ticket/getTicketInfo", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+       },
+    }).then((res) => {
       const formattedData = res.data.map((item) => {
         return {
           activeStep: item?.active_step,

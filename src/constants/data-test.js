@@ -117,7 +117,7 @@ export const columnsFormManagement = [
 
 export const columnsFormLinkManagement = [
   {
-    id: "form_link_name",
+    id: "formLinkName",
     label: "Form Link's name",
     minWidth: 170,
     align: "center",

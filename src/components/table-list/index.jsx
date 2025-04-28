@@ -23,6 +23,8 @@ function TableList({ columns, rows, name }) {
     setRowsPerPage(event.target.value);
     setPage(0);
   }, []);
+
+  let styleStatus = "";
   return (
     <Paper>
       <div>
@@ -41,7 +43,7 @@ function TableList({ columns, rows, name }) {
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    style={{ minWidth: column.minWidth, fontWeight: "bold" }}
                   >
                     {column.label}
                   </TableCell>
@@ -52,12 +54,36 @@ function TableList({ columns, rows, name }) {
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
+                
+                    if (row.activeStep === 1) {
+                      row.status = "Waiting";
+                      styleStatus = "#fff3cd"; // màu vàng nhạt
+                    }
+                    if (row.activeStep === 2) {
+                      row.status = "Verified";
+                      styleStatus = "#4cacf7"; // màu xanh nhạt
+                    }
+                    if (row.activeStep === 3) {
+                      row.status = "Approved";
+                      styleStatus = "#7fcb82"; // màu xanh lá nhạt
+                    }
+                    if (row.activeStep === 4) {
+                      row.status = "Completed";
+                      styleStatus = "#616161"; // màu xanh lá nhạt
+                    }
+                    if (row.activeStep === -1) {
+                      row.status = "Rejected";
+                      styleStatus = "#ffaba5"; // màu đỏ nhạt
+                    }
                   return (
                     <TableRow
                       hover
                       role="checkbox"
                       tabIndex={-1}
                       key={row.ticketId}
+                      style={{
+                        backgroundColor: styleStatus // màu vàng nhạt
+                      }}
                     >
                       {columns.map((column, index) => {
                         const value = row[column.id];
