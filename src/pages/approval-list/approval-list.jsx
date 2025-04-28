@@ -13,12 +13,21 @@ export const ApprovalList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { user } = useContext(UserContext) ?? "";
   const [rowsApprovalList, SetRowsApprovalList] = useState([]);
+  const token = localStorage.getItem("Token");
 
   const fetchTicketInfo = useCallback(() => {
     axios
-      .get(URL_SERVER_LOCAL +"/api/Ticket/getTicketInfo")
+      .get(URL_SERVER_LOCAL +"/api/Ticket/getTicketInfo",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+           },
+        }
+      )
+      
       .then((res) => {
         const formattedData = res.data.map((item) => {
+         
           return {
             activeStep: item?.active_step,
             dateApproved: item?.date_approved

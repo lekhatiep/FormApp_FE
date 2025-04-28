@@ -12,11 +12,13 @@ import { TextField } from "@mui/material";
 import { NOTIFICATION, TIMESTAMP_FORMAT,  } from "@constants/common";
 import { URL_SERVER_LOCAL } from "../../../constants/common";
 export default function FormLinkEditingPopup(props) {
+
+  console.log(props)
   const {
     handleCloseForm,
-    form_link_name: formLinkName,
-    form_link_description: formLinkDescription,
-    form_link_url: formLinkURL,
+    formLinkName,
+    formLinkDescription,
+    formLinkUrl,
     form_link_id: formLinkId,
     handleRefresh,
   } = props ?? {};
@@ -93,7 +95,7 @@ export default function FormLinkEditingPopup(props) {
                       style={{ width: "31.25rem" }}
                       maxLength={"100"}
                       type="text"
-                      defaultValue={formLinkURL}
+                      defaultValue={formLinkUrl}
                       {...register(`formLinkUrl`, { required: true })}
                     />
                     {errors[`formLinkUrl`] && (

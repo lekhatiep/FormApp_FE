@@ -31,6 +31,8 @@ export default function UpdatePage() {
   const [activeStep, setActiveStep] = useState(-1);
   const classes = useStyles();
   const currentDate = dayjs().format("DD/MM/YYYY");
+  const token = localStorage.getItem("Token");
+  
   useEffect(() => {
     async function fetchFormLayout() {
       const rs = await axios.get(
@@ -63,6 +65,9 @@ export default function UpdatePage() {
     }
     const res = await axios.get(URL_SERVER_LOCAL+`/api/User/getStaffEmailList`, {
       params: { staffRole },
+      headers: {
+        Authorization: `Bearer ${token}`,
+       },
     });
     return res.data;
   }

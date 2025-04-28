@@ -20,11 +20,16 @@ const rowsRequestList = [];
 export const RequestList = () => {
   const [ticketInfo, setTicketInfo] = useState([]);
   const { getTicketInfo } = useContext(TicketContext);
+  const token = localStorage.getItem("Token");
 
   //---------------------------------------------------
   const fetchTicketInfo = useCallback(async () => {
     try {
-      const rs = await axios.get(URL_SERVER_LOCAL +"/api/Ticket/getTicketInfo");
+      const rs = await axios.get(URL_SERVER_LOCAL +"/api/Ticket/getTicketInfo", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+         },
+      });
       setTicketInfo(rs.data);
       getTicketInfo(rs.data); // Pass info to context
     } catch (err) {

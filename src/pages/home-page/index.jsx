@@ -64,7 +64,7 @@ export const HomePage = () => {
         return item.form_name.toLowerCase().includes(value.toLowerCase());
       });
       const filteredFormLink = formLink.filter((item) => {
-        return item.form_link_name.toLowerCase().includes(value.toLowerCase());
+        return item.formLinkName.toLowerCase().includes(value.toLowerCase());
       });
       const combinedResults = [...filteredDynamicForm, ...filteredFormLink];
       setSearchResult(combinedResults);

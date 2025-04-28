@@ -134,7 +134,7 @@ export default function TicketPage() {
   const [isCommitted, setIsCommitted] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const classes = useStyles();
-  
+  const token = localStorage.getItem("Token");
   
   console.log(user.role);
   console.log(activeStep);
@@ -268,6 +268,9 @@ export default function TicketPage() {
     }
     const res = await axios.get(URL_SERVER_LOCAL+`/api/User/getStaffEmailList`, {
       params: { staffRole },
+      headers: {
+        Authorization: `Bearer ${token}`,
+       },
     });
     return res.data;
   }
@@ -287,14 +290,17 @@ export default function TicketPage() {
             ? `ĐƠN CỦA BẠN ĐÃ XÉT DUYỆT XONG`
             : `ĐƠN CỦA BẠN ĐÃ XÉT DUYỆT ĐẾN BƯỚC ${activeStep}/4`;
         const staffMessage = `ĐƠN SỐ ${ticketID} ĐÃ XÉT DUYỆT ĐẾN BƯỚC ${activeStep}/4`;
+
         const studentEmailParams = {
-          to_name: user.accountId,
+          to_name: user.firstName + '' + user.lastName,
           from_name: "ĐHQG",
           message: studentMessage,
           reply_to: studentEmail,
-          subject: "Xét duyệt đơn",
+          subject: `Xét duyệt đơn số: ${ticketID}`,
           to_email: studentEmail,
+          approval_step: activeStep
         };
+
         const nextStaffEmailParams = {
           to_name: "NHÂN VIÊN",
           from_name: "ĐHQG",
@@ -302,6 +308,7 @@ export default function TicketPage() {
           reply_to: StaffEmails,
           subject: "Có đơn cần duyệt mới",
           to_email: StaffEmails,
+          ticket_id: ticketID,
         };
         const resultSendingMailToStudent = await sendEmailtoStudents(
           studentEmailParams
@@ -331,7 +338,7 @@ export default function TicketPage() {
   function handleDisapprove() {
     if (note !== "") {
       axios
-        .post(URL_SERVER_LOCAL+`/api/Ticket/disapproveTicket`, { ticketID })
+        .post(URL_SERVER_LOCAL+`/api/Ticket/disapproveTicket`, { ticketID, activeStep })
         .then(() => {
           axios.post(URL_SERVER_LOCAL+`/api/Ticket/updatePreviousNote`, {
             note,
@@ -351,7 +358,7 @@ export default function TicketPage() {
             from_name: "ĐHQG",
             message: studentMessage,
             reply_to: studentEmail,
-            subject: "Xét duyệt đơn",
+            subject: "Xét duyệt đơn" + ticketID,
             to_email: studentEmail,
           };
 

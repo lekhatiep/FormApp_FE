@@ -51,7 +51,7 @@ export default function BasicTabs(props) {
           rows={rows}
           setRows={setRows}
           columns={columnsFormManagement}
-          name="Form Manament"
+          name="Form Management"
         />
       </TabLayout>
 
@@ -61,7 +61,7 @@ export default function BasicTabs(props) {
           rows={linkRows}
           setLinkRows={setLinkRows}
           columns={columnsFormLinkManagement}
-          name="Form Manament"
+          name="Form Link Management"
         />
       </TabLayout>
     </Box>

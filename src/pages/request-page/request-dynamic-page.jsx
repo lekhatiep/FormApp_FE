@@ -45,15 +45,16 @@ export default function RequestDynamicForm() {
   const [isPosted, setIsPosted] = useState(false);
   const [userID, setUserID] = useState();
   const [emailStaffs, setEmailStaffs] = useState([]);
-
+  const token = localStorage.getItem("Token");
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  
   const getStaffEmailList = useCallback(async () => {
-    const token = localStorage.getItem("Token");
+    
     const res = await axios.get(URL_SERVER_LOCAL +`/api/User/getStaffEmailList`, {
       params: { staffRole: PERMISSIONS.VERIFIER },
       headers: {
@@ -100,8 +101,8 @@ export default function RequestDynamicForm() {
             console.log(emails);
             
             const emailParams = {
-              //to_email: emails,
-              to_email: 'popcap1012@gmail.com',
+              to_email: emails,
+              //to_email: 'popcap1012@gmail.com',
               from_name: "ĐHQG",
               to_name: "NHÂN VIÊN",
               message: "CÓ ĐƠN CẦN XÉT DUYỆT",
