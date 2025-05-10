@@ -308,7 +308,7 @@ export default function TicketPage() {
           reply_to: StaffEmails,
           subject: "Có đơn cần duyệt mới",
           to_email: StaffEmails,
-          ticket_id: ticketID,
+          ticket_id: `${ticketID}`,
         };
         const resultSendingMailToStudent = await sendEmailtoStudents(
           studentEmailParams
