@@ -259,7 +259,7 @@ export default function FormEditing(props) {
                     disabled
                     rows={8}
                     cols={20}
-                    placeholder="academicYear&#13;faculty&#13;phoneNumber&#13;placeOfBirth&#13;trainingForm&#13;maxStudyTime&#13;birthdate"
+                    placeholder="username&#13;firstname&#13;lastname&#13;email&#13;currentyear&#13;maxStudyTime&#13;birthdate"
                   />
                 </Box>
               </Box>

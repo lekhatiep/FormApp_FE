@@ -75,6 +75,14 @@ function TableList({ columns, rows, name }) {
                       row.status = "Rejected";
                       styleStatus = "#ffaba5"; // màu đỏ nhạt
                     }
+                    //console.log(row.dateApproved);
+                    // Xử lý trường hợp dateApproved là '01-01-1901 00:00'
+                    {var dateApprove= row.dateApproved == '01-01-1901 00:00'
+                      ? '- -'
+                      : row.dateApproved;
+                      row.dateApproved = dateApprove;
+                    }
+                    
                   return (
                     <TableRow
                       hover

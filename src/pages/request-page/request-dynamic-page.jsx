@@ -184,7 +184,7 @@ export default function RequestDynamicForm() {
                                 ? "date"
                                 : "text"
                             }
-                            //disabled={item.hasOwnProperty("date")}
+                            disabled={item.hasOwnProperty("date")}
                             name={`items[${index}].name`}
                             defaultValue={
                               id === "date"
