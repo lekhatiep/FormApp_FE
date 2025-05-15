@@ -209,8 +209,8 @@ export default function TicketPage() {
         console.log(res);
         
         const formData = JSON.parse(res[0]?.value?.data.ticket_data);
-        formData.firstName = res[0]?.value?.data.first_name;
-        formData.lastName = res[0]?.value?.data.last_name;
+        formData.firstName = res[0]?.value?.data.firstName;
+        formData.lastName = res[0]?.value?.data.lastName;
         formData.email = res[0]?.value?.data.email;
         formData.studentId = res[0]?.value?.data.student_id;
         formData.academicYear = res[0]?.value?.data.academic_year;
@@ -221,7 +221,8 @@ export default function TicketPage() {
         const parsedBirthdate = dayjs(res[0]?.value?.data.birthdate);
         formData.birthdate = parsedBirthdate.format(BIRTHDATE_FORMAT);
         const parsedMaxStudyTime = dayjs(res[0]?.value?.data.max_study_time);
-        formData.maxStudyTime = parsedMaxStudyTime.format(MAX_TIME_FORMAT);
+        formData.username = res[0]?.value?.data.username;
+        
         console.log(formData);
         const Data = {
           approved_date: dayjs().date(),
@@ -421,7 +422,9 @@ export default function TicketPage() {
             <h3> Form Information:</h3>
             {ticketData &&
               Object.entries(ticketData).map(([key, value]) => {
-                if (typeof value === "string" && Date.parse(value)) {
+
+                console.log(key + ": " + value);
+                if (typeof value === "string" && dayjs(value, ['YYYY-MM-DD', 'YYYY-MM-DD HH:mm:ss', 'DD-MM-YYYY', 'DD-MM-YYYY HH:mm:ss'], true).isValid()) {
                   return (
                     <p key={key}>
                       <strong>{key}: </strong>

@@ -71,7 +71,11 @@ const GenDocx = (props) => {
           paragraphLoop: true,
           linebreaks: true,
         });
-        const data = formData;
+        //const data = formData;
+        formData.currentYear = new Date().getFullYear();
+        //console.log("formData", formData);
+        const data = normalizeKeys(formData);
+        //console.log("data", data);
         doc.setData(data);
         doc.render();
 
@@ -107,5 +111,19 @@ const GenDocx = (props) => {
     </React.Fragment>
   );
 };
+
+function normalizeKeys(data) {
+  const result = {};
+  for (const key in data) {
+    const newKey = key
+      .normalize("NFD") // chuẩn hóa Unicode để tách dấu
+      .replace(/[\u0300-\u036f]/g, "") // xóa dấu tiếng Việt
+      .replace(/\s+/g, "") // xóa khoảng trắng
+      .replace(/[^a-zA-Z0-9_]/g, "") // xóa ký tự đặc biệt
+      .toLowerCase();
+    result[newKey] = data[key];
+  }
+  return result;
+}
 
 export default GenDocx;
