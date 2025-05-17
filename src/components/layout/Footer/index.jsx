@@ -57,7 +57,7 @@ export const Footer = () => {
       <div className={classes.divider} />
       <div className={classes.footerList}>
         <div className={classes.footerContent}>
-          <h3>School of Computer Science and Engineering</h3>
+          <h3>Ho Chi Minh City University of Technology</h3>
           
         </div>
         <div className={classes.footerContent}>
